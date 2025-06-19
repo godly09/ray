@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 
+    ===================================================================
+    Uppercase Text Converter - Small Letter to Big Letter
+    A simple, fast, and SEO-optimized single-page web tool.
+    Created by an AI Assistant.
+    ===================================================================
+    -->
+
+    <!--/ SEO and Core Meta Tags /-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uppercase Text Converter - Instantly Convert to ALL CAPS</title>
+    <meta name="description" content="A free and simple online tool to instantly convert any text from lowercase to uppercase (ALL CAPS). Paste your text, convert it, and copy the result with one click. Mobile-friendly and fast.">
+    <meta name="keywords" content="uppercase converter, text converter, to caps, all caps, capital letters, case converter, online tool, lowercase to uppercase, text transform">
+    <meta name="author" content="Your Website Name">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬆️</text></svg>">
+    
+    <!--/ CSS: Mobile Optimized, Modern UI, and Dark Mode /-->
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --secondary-color: #6c757d;
+            --secondary-hover: #5a6268;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #212529;
+            --border-color: #dee2e6;
+            --success-color: #28a745;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #0d6efd;
+                --primary-hover: #3385fd;
+                --secondary-color: #52585d;
+                --secondary-hover: #676e74;
+                --background-color: #121212;
+                --surface-color: #1e1e1e;
+                --text-color: #e0e0e0;
+                --border-color: #444;
+                --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Layout Container */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        main {
+            flex-grow: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+            opacity: 0.8;
+        }
+        
+        /* Main Converter Box */
+        .converter-box {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .text-areas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .textarea-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .io-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            resize: vertical;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .io-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        #output-text {
+            font-weight: bold;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        #copy-btn.copied {
+            background-color: var(--success-color);
+        }
+        
+        /* Stats Panel */
+        .stats-panel {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        /* SEO Content Section */
+        .content-section {
+            padding: 3rem 0;
+        }
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        .content-section p, .content-section ul {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content-section ul {
+            list-style-position: inside;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            background: var(--surface-color);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header>
+            <h1>Uppercase Text Converter</h1>
+            <p>Instantly transform your text from small letters to big letters (ALL CAPS).</p>
+        </header>
+
+        <section class="converter-box">
+            <div class="text-areas-grid">
+                <div class="textarea-group">
+                    <label for="input-text">Paste Your Text Here:</label>
+                    <textarea id="input-text" class="io-textarea" placeholder="Type or paste your lowercase text here..."></textarea>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <span id="char-count">0</span> Characters | <span id="word-count">0</span> Words
+            </div>
+            
+            <div class="action-buttons">
+                <button id="convert-btn" class="btn btn-primary">Convert to Uppercase</button>
+                <button id="copy-btn" class="btn btn-secondary">Copy Result</button>
+                <button id="clear-btn" class="btn btn-secondary">Clear</button>
+            </div>
+            
+            <div class="text-areas-grid" style="margin-top: 2rem;">
+                 <div class="textarea-group">
+                    <label for="output-text">Your Uppercase Text:</label>
+                    <textarea id="output-text" class="io-textarea" placeholder="Your result will appear here." readonly></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>About the Uppercase Converter</h2>
+            <p>Our Uppercase Text Converter is a simple but powerful online tool designed for anyone who needs to quickly change the case of their text. Whether you're a writer creating a headline, a developer formatting a constant, or a social media manager making a post stand out, this tool gets the job done in an instant. There's no software to install; it works right in your browser on any device.</p>
+            
+            <h3 style="margin-top: 2rem;">How to Use</h3>
+            <ol style="max-width: 700px; margin: 1rem auto; padding-left: 1.5rem;">
+                <li><strong>Paste Your Text:</strong> Type or paste any text you want to convert into the top box.</li>
+                <li><strong>Click Convert:</strong> Hit the "Convert to Uppercase" button. The tool will instantly change all lowercase letters to their uppercase equivalents.</li>
+                <li><strong>Copy the Result:</strong> The converted text will appear in the bottom box. Click the "Copy Result" button to save it to your clipboard.</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2024 Your Website Name. A Simple Tool for Everyone.</p>
+    </footer>
+    
+    <!--/ JavaScript Logic for Conversion and UI /-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all necessary elements from the DOM
+            const inputText = document.getElementById('input-text');
+            const outputText = document.getElementById('output-text');
+            const convertBtn = document.getElementById('convert-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const charCountSpan = document.getElementById('char-count');
+            const wordCountSpan = document.getElementById('word-count');
+
+            // --- Main Functionality ---
+
+            // Function to convert text to uppercase
+            const convertText = () => {
+                outputText.value = inputText.value.toUpperCase();
+            };
+
+            // Function to update character and word counts
+            const updateStats = () => {
+                const text = inputText.value;
+                charCountSpan.textContent = text.length;
+
+                // Word count logic: split by whitespace and filter out empty strings
+                const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+                wordCountSpan.textContent = words.length;
+            };
+
+            // Function to copy text to clipboard
+            const copyResult = () => {
+                if (outputText.value) {
+                    navigator.clipboard.writeText(outputText.value)
+                        .then(() => {
+                            // Provide user feedback
+                            copyBtn.textContent = 'Copied!';
+                            copyBtn.classList.add('copied');
+                            setTimeout(() => {
+                                copyBtn.textContent = 'Copy Result';
+                                copyBtn.classList.remove('copied');
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                            alert('Could not copy text to clipboard.');
+                        });
+                }
+            };
+            
+            // Function to clear all fields
+            const clearFields = () => {
+                inputText.value = '';
+                outputText.value = '';
+                updateStats(); // Reset stats to 0
+            };
+            
+            // --- Event Listeners ---
+
+            // Convert when the button is clicked
+            convertBtn.addEventListener('click', convertText);
+
+            // Update stats live as the user types
+            inputText.addEventListener('input', updateStats);
+
+            // Copy the result
+            copyBtn.addEventListener('click', copyResult);
+            
+            // Clear the text areas
+            clearBtn.addEventListener('click', clearFields);
+            
+            // --- Initial State ---
+            updateStats(); // Set initial counts to 0
+        });
+    </script>
+</body>
+</html>
